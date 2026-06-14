@@ -1,825 +1,879 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[Your Name] — SWE Career Consultant</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --cream: #F5F0E8;
-    --cream-dark: #EDE6D6;
-    --tan: #C9B99A;
-    --tan-light: #DDD0BB;
-    --brown: #6B4F35;
-    --brown-dark: #3E2C1C;
-    --charcoal: #1C1A18;
-    --warm-gray: #8A8078;
-    --navy: #3E2C1C;
-    --navy-hover: #6B4F35;
-    --white: #FDFAF5;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--cream);
-    color: var(--charcoal);
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.25rem 4rem;
-    background: rgba(245, 240, 232, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201, 185, 154, 0.3);
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--brown-dark);
-    letter-spacing: 0.02em;
-    text-decoration: none;
-  }
-
-  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-
-  .nav-links a {
-    font-family: var(--sans);
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--warm-gray);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--brown-dark); }
-
-  .nav-cta {
-    font-size: 0.78rem !important;
-    font-weight: 500 !important;
-    color: var(--white) !important;
-    background: var(--brown-dark);
-    padding: 0.6rem 1.4rem;
-    border-radius: 2px;
-    letter-spacing: 0.08em !important;
-    transition: background 0.2s !important;
-  }
-
-  .nav-cta:hover { background: var(--brown) !important; color: var(--white) !important; }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 5rem;
-  }
-
-  .hero-left {
-    background: var(--brown-dark);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 5rem 6rem 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-left::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: rgba(201, 185, 154, 0.08);
-  }
-
-  .hero-left::after {
-    content: '';
-    position: absolute;
-    bottom: 60px; left: -40px;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: rgba(201, 185, 154, 0.08);
-  }
-
-  .hero-eyebrow {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--tan);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 1.75rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
-
-  .hero-name em {
-    font-style: italic;
-    color: var(--tan-light);
-  }
-
-  .hero-desc {
-    font-size: 0.95rem;
-    line-height: 1.75;
-    color: rgba(253, 250, 245, 0.65);
-    max-width: 380px;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
-
-  .hero-actions {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    background: var(--navy);
-    color: var(--white);
-    padding: 0.85rem 2rem;
-    font-family: var(--sans);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-primary:hover { background: var(--navy-hover); transform: translateY(-1px); }
-
-  .btn-secondary {
-    display: inline-block;
-    border: 1px solid rgba(201, 185, 154, 0.4);
-    color: var(--tan-light);
-    padding: 0.85rem 2rem;
-    font-family: var(--sans);
-    font-size: 0.82rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .btn-secondary:hover { border-color: var(--tan); color: var(--white); }
-
-  .hero-right {
-    background: var(--cream-dark);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-photo-placeholder {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, var(--tan-light) 0%, var(--cream-dark) 60%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .photo-hint {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-style: italic;
-    color: var(--tan);
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  /* ── SECTION BASICS ── */
-  section { padding: 7rem 6rem; }
-
-  .section-label {
-    font-family: var(--sans);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--brown);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--brown-dark);
-    margin-bottom: 1.5rem;
-  }
-
-  .section-title em { font-style: italic; color: var(--brown); }
-
-  /* ── SERVICES ── */
-  #services {
-    background: var(--white);
-    padding: 7rem 6rem;
-  }
-
-  .services-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 4rem;
-  }
-
-  .services-intro {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--warm-gray);
-    max-width: 420px;
-    align-self: end;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5px;
-    background: var(--tan-light);
-    border: 1.5px solid var(--tan-light);
-  }
-
-  .service-card {
-    background: var(--white);
-    padding: 2.5rem;
-    transition: background 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .service-card:hover { background: var(--cream); }
-
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--brown);
-    transition: height 0.3s;
-  }
-
-  .service-card:hover::before { height: 100%; }
-
-  .service-num {
-    font-family: var(--serif);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--tan);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-
-  .service-title {
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 500;
-    color: var(--brown-dark);
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-  }
-
-  .service-desc {
-    font-size: 0.88rem;
-    line-height: 1.75;
-    color: var(--warm-gray);
-  }
-
-  .service-duration {
-    display: inline-block;
-    margin-top: 1.25rem;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--brown);
-    border-bottom: 1px solid var(--tan);
-    padding-bottom: 2px;
-  }
-
-  /* ── ABOUT ── */
-  #about {
-    background: var(--cream);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-    padding: 7rem 6rem;
-  }
-
-  .about-image-wrap {
-    position: relative;
-    aspect-ratio: 4/5;
-  }
-
-  .about-image-box {
-    width: 100%;
-    height: 100%;
-    background: var(--cream-dark);
-    border: 1px solid var(--tan-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .about-image-label {
-    font-family: var(--serif);
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--tan);
-    text-align: center;
-  }
-
-  .about-accent {
-    position: absolute;
-    bottom: -20px; right: -20px;
-    width: 120px; height: 120px;
-    background: var(--brown);
-    opacity: 0.08;
-    border-radius: 50%;
-  }
-
-  .about-content { }
-
-  .about-body {
-    font-size: 1rem;
-    line-height: 1.9;
-    color: var(--warm-gray);
-    margin-bottom: 1.5rem;
-  }
-
-  .about-body strong {
-    color: var(--brown-dark);
-    font-weight: 500;
-  }
-
-  .about-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 2rem;
-  }
-
-  .tag {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.45rem 1rem;
-    border: 1px solid var(--tan-light);
-    color: var(--brown);
-    background: transparent;
-  }
-
-  /* ── TESTIMONIALS ── */
-  #testimonials {
-    background: var(--brown-dark);
-    padding: 7rem 6rem;
-  }
-
-  #testimonials .section-label { color: var(--tan); }
-  #testimonials .section-title { color: var(--white); }
-  #testimonials .section-title em { color: var(--tan-light); }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-  }
-
-  .testimonial-card {
-    background: rgba(253, 250, 245, 0.06);
-    border: 1px solid rgba(201, 185, 154, 0.15);
-    padding: 2rem;
-    position: relative;
-    transition: background 0.2s;
-  }
-
-  .testimonial-card:hover { background: rgba(253, 250, 245, 0.1); }
-
-  .testimonial-quote {
-    font-family: var(--serif);
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--tan);
-    line-height: 0.8;
-    margin-bottom: 1rem;
-    opacity: 0.6;
-  }
-
-  .testimonial-text {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.75;
-    color: rgba(253, 250, 245, 0.8);
-    margin-bottom: 1.5rem;
-  }
-
-  .testimonial-name {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--tan);
-  }
-
-  .testimonial-role {
-    font-size: 0.75rem;
-    color: var(--warm-gray);
-    margin-top: 0.2rem;
-  }
-
-  .testimonials-placeholder {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
-    border: 1px dashed rgba(201, 185, 154, 0.25);
-  }
-
-  .testimonials-placeholder p {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--warm-gray);
-    font-size: 1rem;
-  }
-
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--cream-dark);
-    padding: 7rem 6rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-
-  .contact-left { }
-
-  .contact-body {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--warm-gray);
-    margin-bottom: 2.5rem;
-    max-width: 380px;
-  }
-
-  .contact-detail {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .contact-detail-label {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--tan);
-    min-width: 80px;
-  }
-
-  .contact-detail-value {
-    font-size: 0.9rem;
-    color: var(--warm-gray);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .contact-detail-value:hover { color: var(--brown-dark); }
-
-  /* Calendly embed area */
-  .calendly-wrap {
-    background: var(--white);
-    border: 1px solid var(--tan-light);
-    padding: 2.5rem;
-    text-align: center;
-  }
-
-  .calendly-label {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--brown);
-    margin-bottom: 0.75rem;
-  }
-
-  .calendly-title {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--brown-dark);
-    margin-bottom: 0.5rem;
-  }
-
-  .calendly-sub {
-    font-size: 0.85rem;
-    color: var(--warm-gray);
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  .btn-book {
-    display: inline-block;
-    background: var(--brown-dark);
-    color: var(--white);
-    padding: 1rem 2.5rem;
-    font-family: var(--sans);
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-book:hover { background: var(--brown); transform: translateY(-1px); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--charcoal);
-    padding: 2rem 6rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-name {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--tan);
-  }
-
-  .footer-copy {
-    font-size: 0.75rem;
-    color: var(--warm-gray);
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-
-    #hero { grid-template-columns: 1fr; }
-    .hero-left { padding: 5rem 2rem 3rem; }
-    .hero-right { min-height: 300px; }
-
-    section, #about, #contact { padding: 4rem 1.5rem; }
-    #services { padding: 4rem 1.5rem; }
-
-    .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    #about, #contact { grid-template-columns: 1fr; gap: 2.5rem; }
-    .about-image-wrap { aspect-ratio: 3/2; }
-    .pricing-strip { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asantwa Smith | Software Engineering Interview Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400;500&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #f4efe6;
+      --cream-dark: #ece5d8;
+      --cream-mid:  #dfd8c8;
+      --charcoal:   #1c1c1a;
+      --ink:        #2e2e2b;
+      --body:       #4a4843;
+      --muted:      #8a8680;
+      --soft:       #b0aca6;
+      --border:     #d8d1c4;
+      --border-dk:  #c4bbb0;
+      --accent:     #2d5a3d;
+      --accent-bg:  #eaf2ec;
+      --warm:       #c17f3a;
+      --mono:       'DM Mono', monospace;
+      --serif:      'Fraunces', serif;
+      --sans:       'Nunito', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--body);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.018;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(244, 239, 230, 0.95);
+      border-color: var(--border);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 20px rgba(28,28,26,0.06);
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-logo span { font-style: italic; color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--charcoal); }
+    .nav-cta {
+      background: var(--charcoal) !important;
+      color: var(--cream) !important;
+      padding: 9px 20px;
+      letter-spacing: 0.06em !important;
+    }
+    .nav-cta:hover { background: var(--accent) !important; color: var(--cream) !important; }
+
+    /* ══ SHARED ══ */
+    section { padding: 88px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.2vw, 42px);
+      color: var(--charcoal);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 14px;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    .btn-primary {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 13px 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border-dk);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+    /* ══ HERO ══ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 88px;
+      padding-bottom: 48px;
+    }
+    #hero .container { width: 100%; }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    /* — Business card — */
+    .biz-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(28,28,26,0.1);
+      overflow: hidden;
+    }
+    .biz-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: var(--cream-mid);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .biz-photo img {
+      width: 100%; height: 100%;
+      object-position: center top;
+      object-fit: cover; display: block;
+    }
+    .biz-footer {
+      background: var(--charcoal);
+      padding: 18px 22px;
+    }
+    .biz-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .biz-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #7a7a74;
+      letter-spacing: 0.09em;
+    }
+
+    /* — Hero right — */
+    .hero-right {}
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(44px, 5.5vw, 68px);
+      line-height: 1.06;
+      color: var(--charcoal);
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+    .hero-headline em { font-style: italic; color: var(--accent); }
+    .hero-headline .ul-warm {
+      text-decoration: underline;
+      text-decoration-color: var(--warm);
+      text-underline-offset: 7px;
+      text-decoration-thickness: 2px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--body);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+    .hero-cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .availability {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .availability::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      display: block;
+    }
+
+    /* ══ ABOUT ══ */
+    #about .inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-body {
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.82;
+      font-weight: 300;
+      margin-top: 16px;
+      margin-bottom: 32px;
+    }
+    .about-body strong { color: var(--charcoal); font-weight: 600; }
+    .creds { display: flex; flex-direction: column; }
+    .cred {
+      display: flex;
+      gap: 20px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .cred-year {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--soft);
+      min-width: 44px;
+      letter-spacing: 0.05em;
+    }
+    .cred-text { font-size: 14px; color: var(--ink); font-weight: 400; }
+
+    /* About visual */
+    .about-visual { position: relative; height: 460px; }
+    .about-photo-main {
+      position: absolute; top: 0; left: 0;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+      background: #fff;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(28,28,26,0.08);
+    }
+    .about-photo-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .about-accent {
+      position: absolute; bottom: 0; right: 0;
+      width: 88px; height: 88px;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-accent span {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      writing-mode: vertical-rl;
+    }
+
+    /* ══ RESULTS ══ */
+    #results .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 44px;
+    }
+
+    /* ── Pitch strip ── */
+    .pitch-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 52px;
+    }
+    .pitch-item {
+      background: var(--cream);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+    .pitch-item:hover { background: #fff; }
+    .pitch-icon {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .pitch-heading {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--charcoal);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .pitch-heading em { font-style: italic; color: var(--accent); }
+    .pitch-desc {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+    .pitch-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid #b8d4c0;
+      padding: 4px 10px;
+      letter-spacing: 0.07em;
+    }
+
+    /* Testimonials */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 30px 26px;
+      transition: box-shadow 0.2s;
+    }
+    .testi-card:hover { box-shadow: 0 6px 28px rgba(28,28,26,0.07); }
+    .testi-quote {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.72;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .testi-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--charcoal);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .testi-role {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-top: 3px;
+    }
+    .testi-co {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: var(--accent-bg);
+      padding: 3px 8px;
+      border: 1px solid #b8d4c0;
+      margin-top: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ══ CONTACT ══ */
+    #contact { background: var(--cream-dark); }
+    #contact .inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-blurb {
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-top: 16px;
+      margin-bottom: 36px;
+    }
+    .contact-links { display: flex; flex-direction: column; }
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-dk);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-link:hover .cl-name { color: var(--accent); }
+    .contact-link:hover .cl-arrow { transform: translateX(4px); color: var(--accent); }
+    .cl-type {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--soft);
+      letter-spacing: 0.1em;
+      margin-bottom: 3px;
+    }
+    .cl-name { font-size: 14px; color: var(--ink); font-weight: 400; transition: color 0.2s; }
+    .cl-arrow { color: var(--soft); font-size: 16px; transition: transform 0.2s, color 0.2s; }
+
+    .contact-form {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-heading {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--charcoal);
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .form-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .field-group { display: flex; flex-direction: column; gap: 7px; }
+    .field-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .field-input, .field-select, .field-textarea {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--charcoal);
+      padding: 12px 14px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      appearance: none;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--accent); background: #fff;
+    }
+    .field-input::placeholder, .field-textarea::placeholder { color: var(--soft); }
+    .field-textarea { min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-btn {
+      background: var(--charcoal);
+      color: var(--cream);
+      border: none;
+      padding: 14px 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      font-weight: 500;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+    .form-btn:hover { background: var(--accent); }
+    .form-status {
+      display: none;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid #b8d4c0;
+      padding: 12px 14px;
+    }
+    .form-status.visible { display: block; }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--charcoal);
+      padding: 28px 0;
+    }
+    footer .container { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #555552;
+      letter-spacing: 0.06em;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #555552;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #999996; }
+
+    /* ══ ANIMATIONS ══ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .biz-card { max-width: 240px; }
+      #about .inner, #contact .inner { grid-template-columns: 1fr; gap: 48px; }
+      .pitch-strip { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      #results .top { flex-direction: column; gap: 16px; align-items: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 22px; }
+      nav { padding: 14px 0; }
+      nav .container { align-items: flex-start; gap: 16px; }
+      .nav-links { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+      .nav-links a { font-size: 10px; }
+      .nav-cta { padding: 7px 12px; }
+      section { padding: 68px 0; }
+      #hero { min-height: auto; padding-top: 118px; }
+      .hero-headline { font-size: clamp(39px, 13vw, 52px); }
+      .biz-card { max-width: 220px; }
+      .about-visual { height: 360px; }
+      .contact-form { padding: 28px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer .container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">[Your Name]</a>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#testimonials">Results</a>
-    <a href="#contact" class="nav-cta">Book a Call</a>
+<nav id="nav">
+  <div class="container">
+    <a href="#" class="nav-logo">Asantwa <span>Smith</span></a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#contact" class="nav-cta">Book a call</a></li>
+    </ul>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section id="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">SWE Career Consulting</p>
-    <h1 class="hero-name">
-      Get <em>interview ready.</em><br>Land the role.
-    </h1>
-    <p class="hero-desc">
-      I work with software engineering candidates — new grads and career switchers — to sharpen their resume, nail their behavioral interviews, and walk into technical rounds already prepared.
-    </p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Book a Free Call</a>
-      <a href="#services" class="btn-secondary">See What's Included</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-photo-placeholder">
-      <p class="photo-hint">Your photo<br>goes here</p>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Business card -->
+      <div class="biz-card">
+        <div class="biz-photo">
+          <img src="images/ASmithHeadshot.png" alt="Asantwa Smith" />
+        </div>
+        <div class="biz-footer">
+          <div class="biz-name">Asantwa Smith</div>
+          <div class="biz-title">SWE Interview Consultant</div>
+        </div>
+      </div>
+
+      <!-- Headline + sub + CTA -->
+      <div class="hero-right fade-up">
+        <h1 class="hero-headline">
+          Land the offer.<br/>
+          <em>From someone</em><br/>
+          who's <span class="ul-warm">been there.</span>
+        </h1>
+        <p class="hero-sub">
+          Data engineer, former software engineer, and practical interview partner for new grads,
+          career switchers, and working engineers who want sharper technical stories, cleaner problem-solving,
+          and calmer interview loops.
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">Start interview prep</a>
+          <a href="#about" class="btn-ghost">About me →</a>
+        </div>
+        <div class="availability">Available for resume reviews, mock interviews, and prep plans</div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-header">
-    <div>
-      <p class="section-label">The Package</p>
-      <h2 class="section-title">Four sessions.<br><em>One clear outcome.</em></h2>
-    </div>
-    <p class="services-intro">
-      Most candidates lose the offer before the final round — not because they're unqualified, but because they didn't prepare the right way. Every session is built around closing that gap.
-    </p>
-  </div>
-
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-num">01</div>
-      <h3 class="service-title">Resume Optimization</h3>
-      <p class="service-desc">We rewrite, reframe, and make your resume filter-proof. Every bullet earns its place. By the end, your resume works as hard as you do.</p>
-      <span class="service-duration">1 hour · Session 1</span>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">02</div>
-      <h3 class="service-title">Behavioral Interview Prep</h3>
-      <p class="service-desc">STAR-method story banking, handling curveball questions, and building the confidence to be yourself under pressure.</p>
-      <span class="service-duration">1 hour · Session 2</span>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">03</div>
-      <h3 class="service-title">Technical Mock Interview</h3>
-      <p class="service-desc">Full simulation with live feedback. We work through problems the way a real interviewer would — so nothing on the day surprises you.</p>
-      <span class="service-duration">1 hour · Session 3</span>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">04</div>
-      <h3 class="service-title">Technical Mock Interview II</h3>
-      <p class="service-desc">Second rep, refined feedback, and a final game plan going into your real interviews. You've already been there — now you're ready.</p>
-      <span class="service-duration">1 hour · Session 4</span>
-    </div>
-  </div>
-
-  <div style="margin-top: 1.5px; background: var(--brown-dark); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
-    <p style="font-family: var(--serif); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--white);">You walk out ready to close an offer.</p>
-    <a href="#contact" class="btn-primary">Let's Talk →</a>
-  </div>
-
-</section>
-
-<!-- ABOUT -->
+<!-- ══ ABOUT ══ -->
 <section id="about">
-  <div class="about-image-wrap reveal">
-    <div class="about-image-box">
-      <p class="about-image-label">Your photo<br>goes here</p>
-    </div>
-    <div class="about-accent"></div>
-  </div>
-  <div class="about-content">
-    <p class="section-label">About</p>
-    <h2 class="section-title">I've seen both<br><em>sides of the table.</em></h2>
-    <p class="about-body">
-      I work in tech recruiting and have placed candidates at software companies — which means I know exactly what hiring managers look for, and where most candidates fall short.
-    </p>
-    <p class="about-body">
-      I built this program because I kept seeing <strong>qualified people lose offers they should have had</strong>, just from lack of the right preparation. Everything I do with you is based on what I've seen work on both sides of the hiring process.
-    </p>
-    <div class="about-tags">
-      <span class="tag">Tech Recruiting</span>
-      <span class="tag">SWE Interview Prep</span>
-      <span class="tag">Resume Strategy</span>
-      <span class="tag">Career Coaching</span>
-    </div>
-  </div>
-</section>
+  <div class="container">
+    <div class="inner">
+      <div>
+        <p class="section-label">About me</p>
+        <h2 class="section-title">A technical coach with<br/>real interview <em>mileage.</em></h2>
+        <p class="about-body">
+          I'm a software engineer who has been through the loop and coached others through it too.
+          I know what it feels like to blank on a problem you've solved a dozen times, talk through
+          a design that sounds right in your head, or leave a behavioral round wondering what did
+          not quite land.
+          <br/><br/>
+          My work is part technical prep and part translation: turning your experience into crisp
+          stories, your practice into repeatable patterns, and your nerves into a process you can
+          trust under pressure.
+          <br/><br/>
+          I coach the way I wish someone had coached me: direct, specific, grounded, and human.
+        </p>
+        <div class="creds">
+          <div class="cred">
+            <span class="cred-year">Now</span>
+            <span class="cred-text">Software engineering interview coach and mentor</span>
+          </div>
+          <div class="cred">
+            <span class="cred-year">Exp.</span>
+            <span class="cred-text">Data engineering, software engineering, and technical storytelling</span>
+          </div>
+          <div class="cred">
+            <span class="cred-year">Prep</span>
+            <span class="cred-text">DSA, behavioral rounds, resume strategy, and mock interviews</span>
+          </div>
+          <div class="cred">
+            <span class="cred-year">Style</span>
+            <span class="cred-text">Clear feedback, practical drills, and confidence-building reps</span>
+          </div>
+        </div>
+      </div>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <p class="section-label">Results</p>
-  <h2 class="section-title">What clients <em>say.</em></h2>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="testimonial-quote">"</div>
-      <p class="testimonial-text">[Client testimonial goes here once you've worked with your first client. One strong, specific quote beats a generic one every time.]</p>
-      <p class="testimonial-name">[Client Name]</p>
-      <p class="testimonial-role">New Grad SWE — [Company]</p>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="testimonial-quote">"</div>
-      <p class="testimonial-text">[Second testimonial — a screenshot of a LinkedIn message or DM works just as well as a formal quote when you're starting out.]</p>
-      <p class="testimonial-name">[Client Name]</p>
-      <p class="testimonial-role">Software Engineer — [Company]</p>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="testimonial-quote">"</div>
-      <p class="testimonial-text">[Third testimonial — even one specific result ("landed an offer at X within 3 weeks") is more powerful than vague praise.]</p>
-      <p class="testimonial-name">[Client Name]</p>
-      <p class="testimonial-role">SWE Intern — [Company]</p>
+      <div class="about-visual fade-up">
+        <div class="about-photo-main">
+          <img src="images/AsantwaSpeaker-web.jpg" alt="Asantwa Smith speaking" />
+        </div>
+        <div class="about-accent"><span>SWE → COACH</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ══ RESULTS ══ -->
+<section id="results">
+  <div class="container">
+    <div class="top">
+      <div>
+        <p class="section-label">Results</p>
+        <h2 class="section-title">What people are <em>saying</em></h2>
+      </div>
+      <a href="#contact" class="btn-ghost">Start your prep →</a>
+    </div>
+
+    <div class="pitch-strip fade-up">
+      <div class="pitch-item">
+        <span class="pitch-icon">01</span>
+        <h3 class="pitch-heading">Interview <em>ready.</em></h3>
+        <p class="pitch-desc">DSA patterns, mock loops, and communication drills so your approach is clear before the interviewer has to ask twice.</p>
+        <span class="pitch-tag">LC · design · behavioral</span>
+      </div>
+      <div class="pitch-item">
+        <span class="pitch-icon">02</span>
+        <h3 class="pitch-heading">Resume <em>ready.</em></h3>
+        <p class="pitch-desc">Impact-driven bullets, cleaner project framing, and a LinkedIn story that helps recruiters understand your value quickly.</p>
+        <span class="pitch-tag">resume · LinkedIn · cold outreach</span>
+      </div>
+      <div class="pitch-item">
+        <span class="pitch-icon">03</span>
+        <h3 class="pitch-heading">Offer <em>ready.</em></h3>
+        <p class="pitch-desc">A focused prep plan for your current level, target roles, timeline, and the gaps that are actually blocking your next step.</p>
+        <span class="pitch-tag">plan · practice · feedback</span>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card fade-up">
+        <p class="testi-quote">"I need my resume and LinkedIn to explain what I actually do."</p>
+        <div>
+          <div class="testi-name">RESUME STRATEGY</div>
+          <div class="testi-role">Clarify impact, scope, and technical depth</div>
+          <span class="testi-co">Best first step</span>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <p class="testi-quote">"I can solve problems alone, but interviews make me freeze."</p>
+        <div>
+          <div class="testi-name">MOCK INTERVIEWS</div>
+          <div class="testi-role">Practice communicating tradeoffs in real time</div>
+          <span class="testi-co">Most requested</span>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <p class="testi-quote">"I have interviews coming up and need structure fast."</p>
+        <div>
+          <div class="testi-name">PREP PLAN</div>
+          <div class="testi-role">Prioritize the right reps for your timeline</div>
+          <span class="testi-co">Sprint friendly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
 <section id="contact">
-  <div class="contact-left">
-    <p class="section-label">Let's talk</p>
-    <h2 class="section-title">Book a free<br><em>15-minute call.</em></h2>
-    <p class="contact-body">
-      No pitch, no pressure. We'll talk through where you are, where you're trying to go, and whether this is the right fit. If it is, we'll get started that week.
-    </p>
-    <div class="contact-detail">
-      <span class="contact-detail-label">Email</span>
-      <a href="mailto:your@email.com" class="contact-detail-value">your@email.com</a>
-    </div>
-    <div class="contact-detail">
-      <span class="contact-detail-label">LinkedIn</span>
-      <a href="#" class="contact-detail-value">linkedin.com/in/yourhandle</a>
-    </div>
-    <div class="contact-detail">
-      <span class="contact-detail-label">Location</span>
-      <span class="contact-detail-value">Remote — Available Nationwide</span>
-    </div>
-  </div>
-  <div class="contact-right">
-    <div class="calendly-wrap reveal">
-      <p class="calendly-label">Free Discovery Call</p>
-      <h3 class="calendly-title">15 minutes. No obligation.</h3>
-      <p class="calendly-sub">Pick a time that works for you and I'll reach out to confirm. We'll take it from there.</p>
-      <!-- Replace href with your actual Calendly link -->
-      <a href="https://calendly.com/yourhandle/15min" target="_blank" class="btn-book">Book Your Call →</a>
+  <div class="container">
+    <div class="inner">
+      <div>
+        <p class="section-label">Get in touch</p>
+        <h2 class="section-title">Ready to start?<br/>Let's <em>talk.</em></h2>
+        <p class="contact-blurb">
+          Tell me where you are in the process, what roles you are targeting, and what feels
+          hardest right now. I will help you turn that into a practical next step.
+        </p>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/asantwa-smith/" target="_blank" rel="noopener" class="contact-link">
+            <div><p class="cl-type">LINKEDIN</p><p class="cl-name">linkedin.com/in/asantwa-smith</p></div>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://www.instagram.com/techwithasa/" target="_blank" rel="noopener" class="contact-link">
+            <div><p class="cl-type">INSTAGRAM</p><p class="cl-name">@techwithasa</p></div>
+            <span class="cl-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div>
+          <h3 class="form-heading">Draft your intro</h3>
+          <p class="form-sub">Copy it, then send it on LinkedIn or Instagram.</p>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label" for="name">Name</label>
+            <input class="field-input" type="text" id="name" name="name" placeholder="Alex Chen" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="email">Email</label>
+            <input class="field-input" type="email" id="email" name="email" placeholder="alex@email.com" required />
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="level">Your current level</label>
+          <select class="field-select" id="level" name="level" required>
+            <option value="" disabled selected>Select one…</option>
+            <option>New grad / no experience yet</option>
+            <option>Bootcamp grad / self-taught</option>
+            <option>Career switcher (non-CS background)</option>
+            <option>Junior SWE (0–2 yrs)</option>
+            <option>Mid-level SWE (2–5 yrs)</option>
+            <option>Senior+ leveling up</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="target">Target companies or roles</label>
+          <input class="field-input" type="text" id="target" name="target" placeholder="e.g. fintech startups, backend SWE, data engineering" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="message">What are you working on / struggling with?</label>
+          <textarea class="field-textarea" id="message" name="message" placeholder="Be as specific as you can: timeline, what's not clicking, past attempts, etc." required></textarea>
+        </div>
+        <button class="form-btn" type="submit">Copy message</button>
+        <p class="form-status" id="formStatus" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-name">[Your Name] · SWE Career Consulting</span>
-  <span class="footer-copy">© 2026 · All rights reserved</span>
+  <div class="container">
+    <p class="footer-copy">© 2026 Asantwa Smith. Built with care.</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/asantwa-smith/">LinkedIn</a>
+      <a href="#contact">Contact</a>
+      <a href="https://www.instagram.com/techwithasa/">Instagram</a>
+    </div>
+  </div>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const form = new FormData(contactForm);
+    const intro = [
+      `Hi Asantwa, I'm ${form.get('name')}.`,
+      `Email: ${form.get('email')}`,
+      `Current level: ${form.get('level')}`,
+      `Target roles/companies: ${form.get('target') || 'Still figuring this out'}`,
+      '',
+      form.get('message')
+    ].join('\n');
+
+    try {
+      await navigator.clipboard.writeText(intro);
+      formStatus.textContent = 'Copied. Send this to Asantwa on LinkedIn or Instagram to start the conversation.';
+    } catch (error) {
+      formStatus.textContent = 'Your browser blocked auto-copy. Select your message text and send it through LinkedIn or Instagram.';
+    }
+
+    formStatus.classList.add('visible');
+  });
 </script>
 </body>
 </html>
