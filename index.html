@@ -768,6 +768,10 @@
           hardest right now. I will help you turn that into a practical next step.
         </p>
         <div class="contact-links">
+          <a href="mailto:techwithasamedia@gmail.com" class="contact-link">
+            <div><p class="cl-type">EMAIL</p><p class="cl-name">techwithasamedia@gmail.com</p></div>
+            <span class="cl-arrow">→</span>
+          </a>
           <a href="https://www.linkedin.com/in/asantwa-smith/" target="_blank" rel="noopener" class="contact-link">
             <div><p class="cl-type">LINKEDIN</p><p class="cl-name">linkedin.com/in/asantwa-smith</p></div>
             <span class="cl-arrow">→</span>
@@ -781,8 +785,8 @@
 
       <form class="contact-form" id="contactForm">
         <div>
-          <h3 class="form-heading">Draft your intro</h3>
-          <p class="form-sub">Copy it, then send it on LinkedIn or Instagram.</p>
+          <h3 class="form-heading">Send an intro</h3>
+          <p class="form-sub">This opens your email app with everything filled in.</p>
         </div>
         <div class="form-row">
           <div class="field-group">
@@ -814,7 +818,7 @@
           <label class="field-label" for="message">What are you working on / struggling with?</label>
           <textarea class="field-textarea" id="message" name="message" placeholder="Be as specific as you can: timeline, what's not clicking, past attempts, etc." required></textarea>
         </div>
-        <button class="form-btn" type="submit">Copy message</button>
+        <button class="form-btn" type="submit">Open email draft</button>
         <p class="form-status" id="formStatus" aria-live="polite"></p>
       </form>
     </div>
@@ -851,12 +855,14 @@
 
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
+  const contactEmail = 'techwithasamedia@gmail.com';
 
   contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const form = new FormData(contactForm);
-    const intro = [
+    const subject = `Interview coaching inquiry from ${form.get('name')}`;
+    const body = [
       `Hi Asantwa, I'm ${form.get('name')}.`,
       `Email: ${form.get('email')}`,
       `Current level: ${form.get('level')}`,
@@ -864,14 +870,10 @@
       '',
       form.get('message')
     ].join('\n');
+    const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    try {
-      await navigator.clipboard.writeText(intro);
-      formStatus.textContent = 'Copied. Send this to Asantwa on LinkedIn or Instagram to start the conversation.';
-    } catch (error) {
-      formStatus.textContent = 'Your browser blocked auto-copy. Select your message text and send it through LinkedIn or Instagram.';
-    }
-
+    window.location.href = mailto;
+    formStatus.textContent = `Opening your email app. If it does not open, email ${contactEmail} directly.`;
     formStatus.classList.add('visible');
   });
 </script>
